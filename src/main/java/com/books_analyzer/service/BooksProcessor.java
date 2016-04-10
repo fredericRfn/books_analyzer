@@ -33,6 +33,7 @@ public class BooksProcessor {
 	private final String characterParam;
 	private final String urlParam;
 	private String json;
+	private DBInterface dbInterface;
 	
     ObjectMapper mapper = new ObjectMapper();
 	
@@ -47,21 +48,58 @@ public class BooksProcessor {
 	
 	// This method executes the computations based on the parameters given to the BooksProcessor
 	// Will be implemented as a run() method in a Thread when various petitions will occur at the same time
+	
+	// WARNING : For now, this function is designed only to process ONE BOOK
 	public void process() {
-		if(!urlParam.isEmpty()) {
-			books.add(new Book(this.titleParam, this.authorParam, getTxtFromUrl()));
+		Integer idInDB; // id of the book in the database
+		Book book;
+		boolean hasSucceeded = false;
+		
+		// If the book is provided by the client
+		if(!urlParam.isEmpty() && !titleParam.isEmpty() && !authorParam.isEmpty()) { 
+			book = new Book(this.titleParam, this.authorParam, getTxtFromUrl());
+			books.add(book);
+			hasSucceeded = true;
+			// Add to our database the book generously given by the client
+			// Beware: we might want to flag this book as "unverified"
+			dbInterface.exportToDatabase(book);
+
 		}
-    	try  {
-    		//This is the part generating the JSON
-    		System.out.println("Generating the json...");
-    		json = "{books:" + mapper.writeValueAsString(this.books) + "}";
-    	} catch (JsonProcessingException e) { 
-    		json= "{error:\"Unable to generate JSON\"}";
-    	}
+		// If the book is not provided by the client
+		else { // Let's check our database
+			idInDB = dbInterface.fetchID(this.titleParam, this.authorParam);
+			if(idInDB > 0) { // if the book exists in our database
+				book = dbInterface.importBookFromDatabase(idInDB);
+				books.add(book);
+				hasSucceeded = true;
+			}
+			// If the book does not exist in our database and is not provided by the client
+			else hasSucceeded = false; // We are screwed
+		}	
+		
+		generateJSON(hasSucceeded);
 	}
 	
 	public String getJSON() {
     	return json;
+	}
+	
+	// This function maps the data of a book into a JSON
+	private void generateJSON(boolean dataAvailable) {
+		if (dataAvailable) {
+	    	try  {
+	    		//This is the part generating the JSON
+	    		System.out.println("Generating the json...");
+	    		json = "{books:" + mapper.writeValueAsString(this.books) + "}";
+	    	} catch (JsonProcessingException e) { 
+	    		json= "{error:\"Error during the JSON generation\"}";
+	    	}
+		} else {
+			json= "{error:\"Sorry, your request could not be processed because"
+					+ "data are lacking.\n "
+					+ "Providing the title, the author and the URL to a .txt"
+					+ "file containing the book will solve the issue.\"}";
+		}
 	}
 	
 	private String getTxtFromUrl() {
