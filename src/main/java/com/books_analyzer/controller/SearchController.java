@@ -20,26 +20,13 @@ public class SearchController {
     @RequestMapping("/search")
     public String search(@RequestParam("url") String url)  {
     	booksProcessor = new BooksProcessor();
+    	System.out.println("SeachController: booksProcessor ready, parsing the book from url");
     	booksProcessor.parseBookFromURL(url);
     	Book b = booksProcessor.getBook(0);
-    	// It is necessary to return a result in JSON
-    	/* A basic idea for the search from 1 book could be:
-    	  {
-		  		book: {
-		  			title: ,
-		  			author: ,
-		  			language:,
-		  			sentences: [] (temporarily)
-		  			characters:[]
-		  		}
-    	  	}
-    	  }
-    	 */
-    	/* However: for now we want to display the raw results too; so
-    	  we will make the first 
-    	 */
     	String results = "fail";
     	try  {
+    		//This is the part generating the JSON
+    		System.out.println("Generating the json...");
     		results = mapper.writeValueAsString(b);
     	} catch (JsonProcessingException e) {}
     	return results;

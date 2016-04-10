@@ -19,14 +19,7 @@ public class Sentence {
 		return this.words;
 	}
 	
-	public Float references(Character character, ArrayList<Character> characters) {
-		int involved = 0;
-		for(String tmp:this.words) {
-			for(Character c:characters){
-				if(tmp.toLowerCase() == c.getName()) involved++;
-			}
-		}
-		return (float) (involved > 0 ? 1/involved : 1); 
+	public boolean references(Character character) {
+		return this.content.toLowerCase().contains(character.getName().toLowerCase()); 
 	}
-
 }

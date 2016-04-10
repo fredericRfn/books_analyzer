@@ -8,25 +8,27 @@ import java.util.Set;
 public class Book {
 	public final String title;
 	public ArrayList<Character> characters;
-	public ArrayList<Sentence> sentences;
-	public ArrayList<CharacterSentence> characterSentence;
+	private ArrayList<Sentence> sentences;
+	//public ArrayList<CharacterSentence> characterSentence;
 	
 	public Book(String t, String content) {
 		this.title = t;
 		this.characters = new ArrayList<Character>();
 		this.sentences = new ArrayList<Sentence>();
-		this.characterSentence = new ArrayList<CharacterSentence>();
+		//this.characterSentence = new ArrayList<CharacterSentence>();
+		System.out.println("Step1: generating sentences");
 		generateSentences(content);
+		System.out.println("Step2: generating characters");
 		generateCharacters();
+		System.out.println("Step3: generating associations");
 		generateAssociation();
 	}
-	
 
 	private void generateSentences(String cont) {
 		String c = cont.replace("\r", "");
 		String[] rawSentences = c.split("\n|\\.(?!\\d)|(?<!\\d)\\.");
 		for (int i=0; i<rawSentences.length; i++) {
-			sentences.add(new Sentence(rawSentences[i]));
+			this.sentences.add(new Sentence(rawSentences[i]));
 		}
 	}
 	
@@ -62,10 +64,12 @@ public class Book {
 	}
 	public void generateAssociation() {
 		for(Character c: this.characters) {
+			System.out.println("generateAssociation(): character:" + c.getName());
 			for(Sentence s: this.sentences) {
-				if (s.references(c, this.characters)>0.0) { //references returns a probability of the character to be the focus point of the sentence
-					characterSentence.add(new CharacterSentence(c,s,s.references(c, this.characters)));
-					c.addSentence(s,s.references(c, this.characters));
+				if (s.references(c)) { //references returns a probability of the character to be the focus point of the sentence
+					//characterSentence.add(new CharacterSentence(c,s,s.references(c, this.characters)));
+					c.addSentence(s);
+					System.out.println("Sentence:" + s.getContent() + " added");
 				}
 			}
 		}

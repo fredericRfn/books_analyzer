@@ -1,20 +1,22 @@
 package com.books_analyzer;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Character {
 	public final String name;
-	public HashMap<Sentence, Float> sentences;
+	public ArrayList<String> sentences;
 	
 	public Character(String n) {
 		this.name = n;
+		this.sentences = new ArrayList<String>();
 	}
 	
 	public String getName() {
 		return this.name; 
 	}
 	
-	public void addSentence(Sentence s, Float probability) {
-		sentences.put(s, probability); 
+	public void addSentence(Sentence s) {
+		System.out.println(s.getContent() + " added to character " + name);
+		sentences.add(s.getContent()); 
 	}
 }
