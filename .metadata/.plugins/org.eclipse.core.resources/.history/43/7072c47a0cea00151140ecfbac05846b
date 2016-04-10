@@ -1,0 +1,23 @@
+package books;
+
+import java.util.ArrayList;
+
+public class Book {
+	private final String title;
+	private final Sentence[] sentences;
+	private Character[] characters;
+	
+	public Book(String t, String content) {
+		this.title = t;
+		this.sentences = textToSentences(content);
+	}
+	
+	public Sentence[] textToSentences(String content) {
+		String[] tmp = content.split("[\\.\\!\\?]");
+		for(int i=0;i<tmp.length;i++) {
+			tmp[i].trim();
+		}
+		
+		return result;
+	}
+}

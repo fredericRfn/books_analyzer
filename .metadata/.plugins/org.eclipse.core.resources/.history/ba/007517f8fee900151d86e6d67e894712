@@ -1,0 +1,20 @@
+package books;
+
+import java.util.ArrayList;
+
+public class Book {
+	private final String title;
+	private final ArrayList<Sentence> sentences;
+	private ArrayList<Character> characters;
+	
+	public Book(String t, String content) {
+		this.title = t;
+		this.sentences = textToSentences(content);
+	}
+	
+	public ArrayList<Sentence> textToSentences(String content){
+		ArrayList<Sentence> result = new ArrayList<Sentence>();
+		content.split(regex);
+		return result;
+	}
+}

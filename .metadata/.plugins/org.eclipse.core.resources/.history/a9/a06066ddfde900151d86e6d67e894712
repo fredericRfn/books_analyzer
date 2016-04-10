@@ -1,0 +1,14 @@
+package books;
+
+import java.util.ArrayList;
+
+public class Book {
+	private final String title;
+	private ArrayList<Sentence> sentences;
+	private ArrayList<Character> characters;
+	
+	public Book(String title, String content) {
+		this.title = title;
+		this.sentences = splitToSentences();
+	}
+}
