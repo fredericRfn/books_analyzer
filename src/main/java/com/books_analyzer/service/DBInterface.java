@@ -18,30 +18,50 @@ public class DBInterface {
 	private MysqlDataSource dataSource;
 	
 	public DBInterface() {
-		// Open the connection
 		dataSource = new MysqlDataSource();
-		dataSource.setUser("scott");
-		dataSource.setPassword("tiger");
-		dataSource.setServerName("myDBHost.example.org");
+		dataSource.setUser("root");
+		dataSource.setPassword("root");
+		dataSource.setServerName("ubuntu@54.191.210.230");
 	}
 
 	public Integer getBookId(String titleParam, String authorParam) {
-		
-		return null;
+		ResultSet rs = null;
+		try {
+			rs = executeSQL("SELECT id FROM Books WHERE title='" + titleParam + "' AND author='" + authorParam + "';");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Integer.parseInt(rs.toString());
 	}
 	
 	private Integer getIdSentence(Sentence sentence) {
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet rs = null;
+		try {
+			rs = executeSQL("SELECT id FROM Sentences WHERE content='" + sentence.getContent() + "';");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Integer.parseInt(rs.toString());
 	}
 
 	private Integer getIdCharacter(Character character) {
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet rs = null;
+		try {
+			rs = executeSQL("SELECT id FROM Characters WHERE name='" + character.getName() + "';");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Integer.parseInt(rs.toString());
 	}
 	
 	public Book importBookFromDatabase(Integer idInDB) {
-		// TODO Auto-generated method stub
+		ResultSet rs = null;
+		try {
+			rs = executeSQL("SELECT title,author,content FROM Books WHERE id='" + idInDB.toString() + "';");
+			return new Book(rs.getString(0),rs.getString(1),rs.getString(2));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
