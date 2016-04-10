@@ -9,26 +9,54 @@ public class Book {
 	private int id;
 	public final String title;
 	public final String author;
+	public final String content;
+	public final String language;
 	public ArrayList<Character> characters;
 	private ArrayList<Sentence> sentences;
-	private ArrayList<CharacterSentence> characterSentence;
+	private ArrayList<CharacterSentence> characterSentences;
 	
-	public Book(String t, String author, String content) {
+	public Book(String t, String author, String c) {
 		this.title = t;
 		this.author = author;
+		this.content = c;
+		this.language = "EN";
 		this.characters = new ArrayList<Character>();
 		this.sentences = new ArrayList<Sentence>();
-		this.characterSentence = new ArrayList<CharacterSentence>();
+		this.characterSentences = new ArrayList<CharacterSentence>();
 		System.out.println("Step1: generating sentences");
-		generateSentences(content);
+		generateSentences();
 		System.out.println("Step2: generating characters");
 		generateCharacters();
 		System.out.println("Step3: generating associations");
 		generateAssociation();
 	}
+	
+	public String getTitle() {
+		return this.title;
+	}
+	public String getAuthor() {
+		return this.title;
+	}
+	public String getLanguage() {
+		return this.title;
+	}
+	public String getContent() {
+		return this.content;
+	}
+	public ArrayList<Sentence> getSentences() {
+		return sentences;
+	}
+	
+	public ArrayList<Character> getCharacters() {
+		return characters;
+	}
+	
+	public ArrayList<CharacterSentence> getCharacterSentences() {
+		return characterSentences;
+	}
 
-	private void generateSentences(String cont) {
-		String c = cont.replace("\r", "");
+	private void generateSentences() {
+		String c = this.content.replace("\r", "");
 		String[] rawSentences = c.split("\n|\\.(?!\\d)|(?<!\\d)\\.");
 		for (int i=0; i<rawSentences.length; i++) {
 			this.sentences.add(new Sentence(rawSentences[i]));

@@ -1,13 +1,25 @@
 package com.books_analyzer;
 
 public class CharacterSentence {
-	private int id_character;
-	private int id_sentence;
+	private final Character character;
+	private final Sentence sentence;
 	public final Float probability;
 	
-	public CharacterSentence(int idc, int ids, Float p) {
-		this.id_character = idc;
-		this.id_sentence = ids;
+	public CharacterSentence(Character c, Sentence s, Float p) {
+		this.character = c;
+		this.sentence = s;
 		this.probability = p;
+	}
+
+	public Character getCharacter() {
+		return character;
+	}
+
+	public Sentence getSentence() {
+		return sentence;
+	}
+
+	public Float getProbability() {
+		return probability;
 	}
 }

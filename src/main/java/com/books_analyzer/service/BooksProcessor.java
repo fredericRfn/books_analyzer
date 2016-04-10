@@ -44,6 +44,7 @@ public class BooksProcessor {
 		this.authorParam = a;
 		this.characterParam = c;
 		this.urlParam = u;
+		this.dbInterface = new DBInterface();
 	}
 	
 	// This method executes the computations based on the parameters given to the BooksProcessor
@@ -78,6 +79,7 @@ public class BooksProcessor {
 		}	
 		
 		generateJSON(hasSucceeded);
+		dbInterface.closeConnection();
 	}
 	
 	public String getJSON() {
