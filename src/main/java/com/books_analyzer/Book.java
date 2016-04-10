@@ -6,16 +6,19 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Book {
+	private int id;
 	public final String title;
+	public final String author;
 	public ArrayList<Character> characters;
 	private ArrayList<Sentence> sentences;
-	//public ArrayList<CharacterSentence> characterSentence;
+	private ArrayList<CharacterSentence> characterSentence;
 	
-	public Book(String t, String content) {
+	public Book(String t, String author, String content) {
 		this.title = t;
+		this.author = author;
 		this.characters = new ArrayList<Character>();
 		this.sentences = new ArrayList<Sentence>();
-		//this.characterSentence = new ArrayList<CharacterSentence>();
+		this.characterSentence = new ArrayList<CharacterSentence>();
 		System.out.println("Step1: generating sentences");
 		generateSentences(content);
 		System.out.println("Step2: generating characters");
@@ -66,7 +69,7 @@ public class Book {
 		for(Character c: this.characters) {
 			System.out.println("generateAssociation(): character:" + c.getName());
 			for(Sentence s: this.sentences) {
-				if (s.references(c)) { //references returns a probability of the character to be the focus point of the sentence
+				if (s.references(c)) { //references will return a probability of the character to be the focus point of the sentence
 					//characterSentence.add(new CharacterSentence(c,s,s.references(c, this.characters)));
 					c.addSentence(s);
 					System.out.println("Sentence:" + s.getContent() + " added");
