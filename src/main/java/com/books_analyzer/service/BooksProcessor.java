@@ -68,7 +68,7 @@ public class BooksProcessor {
 		}
 		// If the book is not provided by the client
 		else { // Let's check our database
-			idInDB = dbInterface.fetchID(this.titleParam, this.authorParam);
+			idInDB = dbInterface.getBookId(this.titleParam, this.authorParam);
 			if(idInDB > 0) { // if the book exists in our database
 				book = dbInterface.importBookFromDatabase(idInDB);
 				books.add(book);

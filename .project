@@ -20,7 +20,7 @@
 			</matcher>
 		</filter>
 	</filteredResources>
-	<name>operaciones</name>
+	<name>books_analyzer</name>
 	<comment>Project operaciones created by Buildship.</comment>
 	<projects/>
 	<natures>
