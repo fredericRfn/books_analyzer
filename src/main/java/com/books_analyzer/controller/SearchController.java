@@ -14,8 +14,6 @@ import com.books_analyzer.service.BooksProcessor;
 
 @RestController
 public class SearchController {
-	
-
     BooksProcessor booksProcessor;
     ObjectMapper mapper = new ObjectMapper();
    

@@ -2,25 +2,23 @@ package com.books_analyzer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 public class Book {
 	public final String title;
 	public ArrayList<Character> characters;
 	public ArrayList<Sentence> sentences;
-	//public ArrayList<CharacterSentence> characterSentence;
+	public ArrayList<CharacterSentence> characterSentence;
 	
 	public Book(String t, String content) {
 		this.title = t;
 		this.characters = new ArrayList<Character>();
 		this.sentences = new ArrayList<Sentence>();
-		//this.characterSentence = new ArrayList<CharacterSentence>();
+		this.characterSentence = new ArrayList<CharacterSentence>();
 		generateSentences(content);
 		generateCharacters();
-		//generateAssociations();
+		generateAssociation();
 	}
 	
 
@@ -53,14 +51,23 @@ public class Book {
 			}
 		}
 		Set<String> keySet = wordsUpperWithCount.keySet();
-		Iterator iterator = keySet.iterator();
+		Iterator<String> iterator = keySet.iterator();
 	    String tmp;
 		while(iterator.hasNext()) {
 	    	tmp = (String) iterator.next();
 	    	if ((wordsUpperWithCount.get(tmp) == wordsWithCount.get(tmp)) &&  (wordsUpperWithCount.get(tmp) > 2)) {
-	    		characters.add(new Character(tmp));
+	    		this.characters.add(new Character(tmp));
 	    	}
 	    }
 	}
-	
+	public void generateAssociation() {
+		for(Character c: this.characters) {
+			for(Sentence s: this.sentences) {
+				if (s.references(c, this.characters)>0.0) { //references returns a probability of the character to be the focus point of the sentence
+					characterSentence.add(new CharacterSentence(c,s,s.references(c, this.characters)));
+					c.addSentence(s,s.references(c, this.characters));
+				}
+			}
+		}
+	}
 }

@@ -4,13 +4,17 @@ import java.util.HashMap;
 
 public class Character {
 	public final String name;
-	public HashMap<Sentence, Integer> sentences;
+	public HashMap<Sentence, Float> sentences;
 	
 	public Character(String n) {
 		this.name = n;
 	}
 	
-	public void addSentences(Sentence s, Integer probability) {
-		sentences.put(s, probability);
+	public String getName() {
+		return this.name; 
+	}
+	
+	public void addSentence(Sentence s, Float probability) {
+		sentences.put(s, probability); 
 	}
 }
