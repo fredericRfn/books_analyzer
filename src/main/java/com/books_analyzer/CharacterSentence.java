@@ -5,7 +5,7 @@ public class CharacterSentence {
 	private final Sentence sentence;
 	public final Float probability;
 	
-	public CharacterSentence(Character c, Sentence s, Float p) {
+	public CharacterSentence(Character c, Sentence s, float p) {
 		this.character = c;
 		this.sentence = s;
 		this.probability = p;

@@ -15,9 +15,9 @@ public class Book {
 	private ArrayList<Sentence> sentences;
 	private ArrayList<CharacterSentence> characterSentences;
 	
-	public Book(String t, String author, String c) {
+	public Book(String t, String a, String c) {
 		this.title = t;
-		this.author = author;
+		this.author = a;
 		this.content = c;
 		this.language = "EN";
 		this.characters = new ArrayList<Character>();
@@ -31,11 +31,19 @@ public class Book {
 		generateAssociation();
 	}
 	
+	public Book(String t, String a, String c, ArrayList<Character> characters) {
+		this.title = t;
+		this.author = a;
+		this.content = c;
+		this.language = "EN";
+		this.characters = characters;
+	}
+
 	public String getTitle() {
 		return this.title;
 	}
 	public String getAuthor() {
-		return this.title;
+		return this.author;
 	}
 	public String getLanguage() {
 		return this.title;
@@ -56,10 +64,10 @@ public class Book {
 	}
 
 	private void generateSentences() {
-		String c = this.content.replace("\r", "");
-		String[] rawSentences = c.split("\n|\\.(?!\\d)|(?<!\\d)\\.");
+		String c = this.content.replace("\r", " ").replace("\n", " ").replace("\t", "");
+		String[] rawSentences = c.split("\\.(?!\\d)|(?<!\\d)\\.");
 		for (int i=0; i<rawSentences.length; i++) {
-			this.sentences.add(new Sentence(rawSentences[i]));
+			this.sentences.add(new Sentence(rawSentences[i].trim()));
 		}
 	}
 	
@@ -98,9 +106,8 @@ public class Book {
 			System.out.println("generateAssociation(): character:" + c.getName());
 			for(Sentence s: this.sentences) {
 				if (s.references(c)) { //references will return a probability of the character to be the focus point of the sentence
-					//characterSentence.add(new CharacterSentence(c,s,s.references(c, this.characters)));
+					characterSentences.add(new CharacterSentence(c,s, (float) 1));
 					c.addSentence(s);
-					System.out.println("Sentence:" + s.getContent() + " added");
 				}
 			}
 		}

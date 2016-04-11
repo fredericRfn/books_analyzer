@@ -12,12 +12,20 @@ public class Character {
 		this.sentences = new ArrayList<String>();
 	}
 	
+	public Character(String n, ArrayList<String> s) {
+		this.name = n;
+		this.sentences = s;
+	}
+
 	public String getName() {
 		return this.name; 
 	}
 	
+	public ArrayList<String> getSentences() {
+		return this.sentences; 
+	}
+	
 	public void addSentence(Sentence s) {
-		System.out.println(s.getContent() + " added to character " + name);
 		sentences.add(s.getContent()); 
 	}
 }

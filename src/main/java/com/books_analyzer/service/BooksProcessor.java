@@ -57,7 +57,7 @@ public class BooksProcessor {
 		boolean hasSucceeded = false;
 		
 		// If the book is provided by the client
-		if(!urlParam.isEmpty() && !titleParam.isEmpty() && !authorParam.isEmpty()) { 
+		if(urlParam!=null && titleParam!=null && authorParam!=null) { 
 			book = new Book(this.titleParam, this.authorParam, getTxtFromUrl());
 			books.add(book);
 			hasSucceeded = true;
@@ -79,7 +79,6 @@ public class BooksProcessor {
 		}	
 		
 		generateJSON(hasSucceeded);
-		dbInterface.closeConnection();
 	}
 	
 	public String getJSON() {
@@ -92,12 +91,12 @@ public class BooksProcessor {
 	    	try  {
 	    		//This is the part generating the JSON
 	    		System.out.println("Generating the json...");
-	    		json = "{books:" + mapper.writeValueAsString(this.books) + "}";
+	    		json = "{\"books\":" + mapper.writeValueAsString(this.books) + "}";
 	    	} catch (JsonProcessingException e) { 
-	    		json= "{error:\"Error during the JSON generation\"}";
+	    		json= "{\"error\":\"Error during the JSON generation\"}";
 	    	}
 		} else {
-			json= "{error:\"Sorry, your request could not be processed because"
+			json= "{\"error\":\"Sorry, your request could not be processed because"
 					+ "data are lacking.\n "
 					+ "Providing the title, the author and the URL to a .txt"
 					+ "file containing the book will solve the issue.\"}";

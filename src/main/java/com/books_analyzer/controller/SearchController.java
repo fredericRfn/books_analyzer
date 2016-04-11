@@ -23,6 +23,8 @@ public class SearchController {
     	System.out.println("SeachController: " + String.join(",", title, author, character, url));
     	booksProcessor = new BooksProcessor(title, author, character, url);
     	booksProcessor.process();
+    	System.out.println("SeachController: Analysis complete");
     	return booksProcessor.getJSON();
+    	
     }
 }
