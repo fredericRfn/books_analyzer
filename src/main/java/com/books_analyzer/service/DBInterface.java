@@ -27,7 +27,8 @@ public class DBInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.url = "jdbc:mysql://localhost:3306/Books?user=root&password=root";
+		// EN LOCAL this.url = "jdbc:mysql://localhost:3306/Books?user=root&password=root";
+		this.url = "jdbc:mysql://54.191.210.230:3306/STG_Books?user=root&password=0";
 		
 	}
 
