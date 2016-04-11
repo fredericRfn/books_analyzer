@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.books_analyzer.Book;
 import com.books_analyzer.Character;
@@ -15,7 +13,6 @@ import com.books_analyzer.Sentence;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
 import com.mysql.jdbc.Statement;
-import com.sun.javafx.collections.MappingChange.Map;
 
 public class DBInterface {
 	public String url;

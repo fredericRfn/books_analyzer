@@ -45,6 +45,7 @@ public class BooksProcessor {
 		this.characterParam = c;
 		this.urlParam = u;
 		this.dbInterface = new DBInterface();
+		System.out.println(String.join(",", t,a,c,u));
 	}
 	
 	// This method executes the computations based on the parameters given to the BooksProcessor
@@ -57,7 +58,7 @@ public class BooksProcessor {
 		boolean hasSucceeded = false;
 		
 		// If the book is provided by the client
-		if(urlParam!=null && titleParam!=null && authorParam!=null) { 
+		if(!urlParam.isEmpty() && titleParam!=null && authorParam!=null) { 
 			book = new Book(this.titleParam, this.authorParam, getTxtFromUrl());
 			books.add(book);
 			hasSucceeded = true;
@@ -67,7 +68,7 @@ public class BooksProcessor {
 
 		}
 		// If the book is not provided by the client
-		else { // Let's check our database
+		else if(urlParam.isEmpty()){ // Let's check our database
 			idInDB = dbInterface.getBookId(this.titleParam, this.authorParam);
 			if(idInDB > 0) { // if the book exists in our database
 				book = dbInterface.importBookFromDatabase(idInDB);
