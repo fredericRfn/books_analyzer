@@ -97,9 +97,11 @@ public class DBInterface {
 	}
 	
 	public void exportToDatabase(Book book) {
+		System.out.println("Exporting book to database");
+		String values = "";
+		
 		String sqlBook = "INSERT INTO Books(title, author, language, content) VALUES('"
 				+ String.join("','", escape(book.getTitle()), escape(book.getAuthor()), "EN", "") + "');\n";
-		System.out.println("DBInterface: SQL sent to the database:");
 		System.out.println(sqlBook);
 		try {
 			executeSQLUpdate(sqlBook);
@@ -110,44 +112,53 @@ public class DBInterface {
 		Integer idBook = getBookId(book.getTitle(), book.getAuthor());
 		String sql = "";
 		
+		System.out.println("Exporting sentences to database");
 		ArrayList<Sentence> sentences = book.getSentences(); 
 		for(Sentence s: sentences) {
-			sql = "INSERT INTO Sentences(idBook, content) VALUES('"
-					+ String.join("','", idBook.toString(), escape(s.getContent())) + "');\n";
-	 		try {
-				executeSQLUpdate(sql.replace("\"", "#").replace("\n", ""));
-			} catch (SQLException e) {
-				System.out.println(sql);
-				e.printStackTrace();
-			}
+			values = values + "('" + String.join("','", idBook.toString(), escape(s.getContent())) + "')";
 		};
 		
+		sql = "INSERT INTO Sentences(idBook, content) VALUES " + values.replace(")(", "),(") + ";";
+ 		try {
+			executeSQLUpdate(sql.replace("\"", "#").replace("\n", ""));
+		} catch (SQLException e) {
+			System.out.println(sql);
+			e.printStackTrace();
+		}
+		
+		System.out.println("Exporting characters to database");
+		values ="";
 		ArrayList<Character> characters = book.getCharacters(); 
 		for(Character c: characters) {
-			sql = "INSERT INTO Characters(name) VALUES('"
-					+ String.join("','", c.getName()) + "');\n";
-	 		try {
-				executeSQLUpdate(sql.replace("\"", "#").replace("\n", ""));
-			} catch (SQLException e) {
-				System.out.println(sql);
-				e.printStackTrace();
-			}
+			values = values + "('" + String.join("','", c.getName()) + "')";
 		};
 		
+		sql = "INSERT INTO Characters(name) VALUES " + values.replace(")(", "),(") + ";";
+ 		try {
+			executeSQLUpdate(sql.replace("\"", "#").replace("\n", ""));
+		} catch (SQLException e) {
+			System.out.println(sql);
+			e.printStackTrace();
+		}
+ 		
+		System.out.println("Exporting characterSentences to database");
+		values ="";
 		ArrayList<CharacterSentence> characterSentences = book.getCharacterSentences(); 
 		for(CharacterSentence cs: characterSentences) {
-			sql = "INSERT INTO CharacterSentence(idCharacter, idSentence) VALUES('"
+			values = values + "("
 					+ String.join("','", 
 							getIdCharacter(cs.getCharacter()).toString(),
 							getIdSentence(cs.getSentence()).toString())
-					+ "');\n";
-	 		try {
-				executeSQLUpdate(sql.replace("\"", "#").replace("\n", ""));
-			} catch (SQLException e) {
-				System.out.println(sql);
-				e.printStackTrace();
-			}
+					+ ")";
+	 		
 		};
+		sql = "INSERT INTO CharacterSentence(idCharacter, idSentence) VALUES " + values.replace(")(", "),(") + ";";
+		try {
+			executeSQLUpdate(sql.replace("\"", "#").replace("\n", ""));
+		} catch (SQLException e) {
+			System.out.println(sql);
+			e.printStackTrace();
+		}
 	}
 		
 	private ResultSet executeSQLQuery(String sql) throws SQLException {
