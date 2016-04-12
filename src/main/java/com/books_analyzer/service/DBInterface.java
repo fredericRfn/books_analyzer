@@ -25,7 +25,7 @@ public class DBInterface {
 			e.printStackTrace();
 		}
 		// EN LOCAL this.url = "jdbc:mysql://localhost:3306/Books?user=root&password=root";
-		this.url = "jdbc:mysql://54.191.210.230:3306/STG_Books?user=root&password=0";
+		this.url = "jdbc:mysql://localhost:3306/STG_Books?user=root&password=root";
 		
 	}
 
@@ -146,7 +146,7 @@ public class DBInterface {
 		ArrayList<CharacterSentence> characterSentences = book.getCharacterSentences(); 
 		for(CharacterSentence cs: characterSentences) {
 			values = values + "("
-					+ String.join("','", 
+					+ String.join(",", 
 							getIdCharacter(cs.getCharacter()).toString(),
 							getIdSentence(cs.getSentence()).toString())
 					+ ")";

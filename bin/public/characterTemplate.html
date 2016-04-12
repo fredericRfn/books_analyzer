@@ -11,7 +11,13 @@
 	               target='_blank'><span class='glyphicon glyphicon-link'></span></a>
 	        </div>
 	    </div>
-	    <div class='panel-body'>{{sentences}}</div>
+	    <div class='panel-body'>
+	    <ul>
+	    	{{#sentences}}
+	    		<li> {{content}} </li>
+	    	{{/sentences}}
+	    </ul>
+	    </div>
 </div>
 {{/characters}}
 </div>

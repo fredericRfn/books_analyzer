@@ -52,9 +52,9 @@ public class BooksProcessor {
 	// Will be implemented as a run() method in a Thread when various petitions will occur at the same time
 	
 	// WARNING : For now, this function is designed only to process ONE BOOK
-	public void process() {
+	public Book process() {
 		Integer idInDB; // id of the book in the database
-		Book book;
+		Book book = null;
 		boolean hasSucceeded = false;
 		
 		// If the book is provided by the client
@@ -64,7 +64,6 @@ public class BooksProcessor {
 			hasSucceeded = true;
 			// Add to our database the book generously given by the client
 			// Beware: we might want to flag this book as "unverified"
-			dbInterface.exportToDatabase(book);
 
 		}
 		// If the book is not provided by the client
@@ -80,8 +79,12 @@ public class BooksProcessor {
 		}	
 		
 		generateJSON(hasSucceeded);
+		return book;
 	}
 	
+	public DBInterface getInterface() {
+		return dbInterface;
+	}
 	public String getJSON() {
     	return json;
 	}
