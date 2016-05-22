@@ -8,14 +8,13 @@ function search() {
 	$.ajax({
 	    url: urlCompleta,
 	    headers: {"Access-Control-Allow-Origin" : "*"},
-	    dataType: 'jsonp',
+	    dataType: 'json',
 	    cache: 'false',
 	    type: 'GET',
 	    success: function(json){
-	    var plantilla = $('#characterTemplate').html();
-		console.log(urlCompleta);
-		$("#resultsBlock").empty().append(Mustache.to_html(plantilla, json));
-		//$("#resultsBlock").empty().append(JSON.stringify(json));
+	    	$.get(window.location.href + '/characterTemplate.html', function(template) {
+	   			$("#resultsBlock").empty().append(Mustache.to_html(template, json));
+	    	});
 	    }
 	});
 }
