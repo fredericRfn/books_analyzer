@@ -3,12 +3,10 @@ package com.books_analyzer;
 public class CharacterSentence {
 	private final Character character;
 	private final Sentence sentence;
-	public final Float probability;
 	
 	public CharacterSentence(Character c, Sentence s, float p) {
 		this.character = c;
 		this.sentence = s;
-		this.probability = p;
 	}
 
 	public Character getCharacter() {
@@ -17,9 +15,5 @@ public class CharacterSentence {
 
 	public Sentence getSentence() {
 		return sentence;
-	}
-
-	public Float getProbability() {
-		return probability;
 	}
 }

@@ -1,13 +1,12 @@
 package com.books_analyzer;
 
-import java.util.ArrayList;
-
 public class Sentence {
-	private int id;
 	public final String content;
 	private String[] words;
+	public int charactersReferenced;
 	
 	public Sentence(String s) {
+		this.charactersReferenced = 0;
 		this.content = s;
 		this.words = s.replace("\\", "").replace("'s", "").replace("\"", "").replace(".", "").replace(",", "").replace("?", "").replace("!","").split("\\s|'");
 	}
@@ -21,6 +20,7 @@ public class Sentence {
 	}
 	
 	public boolean references(Character character) {
-		return this.content.toLowerCase().contains(character.getName().toLowerCase()); 
+		return this.content.toLowerCase().contains(character.getName().toLowerCase());
+		
 	}
 }
