@@ -24,7 +24,7 @@ public class DBInterface {
 			e.printStackTrace();
 		}
 		//this.url = "jdbc:mysql://localhost:3306/STG_Books?user=root&password=root"; // local configuration
-		this.url = "jdbc:mysql://54191.210.230:3306/STG_Books?user=root&password=0"; // EC2 configuration
+		this.url = "jdbc:mysql://54.191.210.230:3306/STG_Books?user=root&password=0"; // EC2 configuration
 		
 	}
 
