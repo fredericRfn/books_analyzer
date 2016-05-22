@@ -17,7 +17,8 @@ public class SearchController {
 		@RequestParam(value = "title", required=false) String title,
 		@RequestParam(value = "author", required=false) String author,
 		@RequestParam(value = "character", required=false) String character,
-		@RequestParam(value = "url", required=false) String url
+		@RequestParam(value = "url", required=false) String url,
+		@RequestParam(value = "callback", required=false) String callback
     )  {
     	ProcessBookService processBookService = new ProcessBookService();
     	return processBookService.buildResponse(title, author, character, url);
