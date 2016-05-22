@@ -1,5 +1,6 @@
 package com.books_analyzer.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +11,7 @@ import com.books_analyzer.service.ProcessBookService;
 
 @RestController
 public class SearchController {
+	@CrossOrigin
     @RequestMapping(value = "/search", method = { RequestMethod.GET })
     public String search(
 		@RequestParam(value = "title", required=false) String title,
