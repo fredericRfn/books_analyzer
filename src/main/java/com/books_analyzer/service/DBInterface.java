@@ -223,6 +223,89 @@ public class DBInterface {
 			e.printStackTrace();
 		}
 	}
+	
+	// FUNCTIONS NECESSARY FOR THE API
+	
+	// Function called with url: GET /books?author=author&character=character
+	public ArrayList<String> getBooks(String title, String author) {
+		String sql = "SELECT * FROM Books ";
+		ArrayList<String> formattedBooks = new ArrayList<String>();
+		if(author != null && title != null) {
+			sql = sql + "WHERE author='" + author + "' AND title='" + title + "';";;
+		}
+		else if (author!=null) {
+			sql = sql + "WHERE author='" + author + "';";
+		}
+		else if (title!=null) {
+			sql = sql + "WHERE title='" + title + "';";
+		}
+		ResultSet rs;
+		try {
+			rs = executeSQLQuery(sql);
+			while(rs.next()) {
+				formattedBooks.add(
+						"{\"title\":\"" + rs.getString("title") + "\""
+						+ "\"author\":\"" + rs.getString("author") + "\""
+						+ "\"language\":\"" + rs.getString("language") + "\"}");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return formattedBooks;
+	}
+	// Function called with url:  GET /books/id
+	public String[] getTitleAuthorById(Integer id) {
+		String sql = "SELECT * FROM Books WHERE idBook="+id.toString() + ";";
+		try {
+			ResultSet rs = executeSQLQuery(sql);
+			if(rs.next()) {
+				String[] result = {rs.getString("title"), rs.getString("author")};
+				return result;
+			}
+			else return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// Function called with url: DELETE /books/id
+	public String deleteBook(Integer id) {
+		String sql = "DELETE FROM Sentences, CharacterSentence, Characters " +
+				"USING Sentences INNER JOIN CharacterSentence INNER JOIN Characters " +
+				"WHERE Sentences.idSentence=CharacterSentence.idSentence " +
+				"AND Characters.idCharacter=CharacterSentence.idCharacter " +
+				"AND Sentences.idBook=" + id.toString() + ";\n" +
+				"DELETE FROM Sentences WHERE idBook=" + id.toString() + ";\n " +
+				"DELETE FROM Characters " +
+				"WHERE idCharacter NOT IN (SELECT idCharacter FROM CharacterSentence);\n " +
+				"DELETE FROM Books WHERE id=" + id.toString() + ";";
+		try {
+			executeSQLUpdate(sql);
+			return "{\"status\":\"Delete successful\"}";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "{\"status\":\"Delete failed\"}";
+		}
+	}
+	
+	// Function called with url: POST /books?...all 4
+	// Actually this one needs all the analysis to be done to then call exportToDatabase
+	
+	// Function called with url: PUT /books/id?author= title= language=
+	// Solely used to make the metadata accurate
+	// Maybe it would be useful to make a flag: analyze, if true, all the analisis process is done
+	public void editBookById(Integer id, String title, String author) {
+		String sql = "UPDATE Books SET title='" + title + "', author='" + author + "' WHERE idBook="+id.toString() + ";";
+		try {
+			executeSQLQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	private String escape(String s) {
 		return s.replace("'", "#").replace("\"","#").replace("\n", "#");

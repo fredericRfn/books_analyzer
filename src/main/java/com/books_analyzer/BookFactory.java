@@ -18,13 +18,13 @@ public class BookFactory {
 	public Book buildBook(String title, String author, String character, String url) {
 		Book book = null;
 		// If the book is provided by the client
-		if(!url.isEmpty() && title!=null && author!=null) { 
+		if(url!=null && title!=null && author!=null) { 
 			book = new Book(title, author);
 			book.analyzeCharacters(getTxtFromUrl(url));
 			dbInterface.exportToDatabase(book);
 		}
 		// If the book is not provided by the client
-		else if(url.isEmpty()){ // Let's check our database
+		else if(url==null){ // Let's check our database
 			book = new Book(title, author);
 			book.addCharactersFromDB(dbInterface.importCharactersFromDB(title, author));
 		}
