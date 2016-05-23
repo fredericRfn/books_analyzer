@@ -273,17 +273,20 @@ public class DBInterface {
 	
 	// Function called with url: DELETE /books/id
 	public String deleteBook(Integer id) {
-		String sql = "DELETE FROM Sentences, CharacterSentence, Characters " +
+		String sqlDeleteCharacterSentences = "DELETE FROM Sentences, CharacterSentence, Characters " +
 				"USING Sentences INNER JOIN CharacterSentence INNER JOIN Characters " +
 				"WHERE Sentences.idSentence=CharacterSentence.idSentence " +
 				"AND Characters.idCharacter=CharacterSentence.idCharacter " +
-				"AND Sentences.idBook=" + id.toString() + ";\n" +
-				"DELETE FROM Sentences WHERE idBook=" + id.toString() + ";\n " +
-				"DELETE FROM Characters " +
-				"WHERE idCharacter NOT IN (SELECT idCharacter FROM CharacterSentence);\n " +
-				"DELETE FROM Books WHERE id=" + id.toString() + ";";
+				"AND Sentences.idBook=" + id.toString() + ";";
+		String sqlDeleteSentences = "DELETE FROM Sentences WHERE idBook=" + id.toString() + ";";
+		String sqlCleanup = "DELETE FROM Characters " +
+				"WHERE idCharacter NOT IN (SELECT idCharacter FROM CharacterSentence);";
+		String sqlDeleteBook = "DELETE FROM Books WHERE id=" + id.toString() + ";";
 		try {
-			executeSQLUpdate(sql);
+			executeSQLUpdate(sqlDeleteCharacterSentences);
+			executeSQLUpdate(sqlDeleteSentences);
+			executeSQLUpdate(sqlCleanup);
+			executeSQLUpdate(sqlDeleteBook);
 			return "{\"status\":\"Delete successful\"}";
 		} catch (SQLException e) {
 			e.printStackTrace();
