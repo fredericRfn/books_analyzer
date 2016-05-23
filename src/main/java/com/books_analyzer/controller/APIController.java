@@ -2,6 +2,7 @@ package com.books_analyzer.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,8 +31,8 @@ public class APIController {
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.PUT })
     public String editBook(
     	@PathVariable("id") Integer id,
-    	@RequestParam(value = "title", required=false) String title,
-    	@RequestParam(value = "author", required=false) String author
+    	@RequestBody(required=false) String title,
+    	@RequestBody(required=false) String author
     )  {
     	APIService apiService = new APIService();
     	return apiService.updateBook(id, title, author);
