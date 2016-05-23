@@ -281,7 +281,7 @@ public class DBInterface {
 		String sqlDeleteSentences = "DELETE FROM Sentences WHERE idBook=" + id.toString() + ";";
 		String sqlCleanup = "DELETE FROM Characters " +
 				"WHERE idCharacter NOT IN (SELECT idCharacter FROM CharacterSentence);";
-		String sqlDeleteBook = "DELETE FROM Books WHERE id=" + id.toString() + ";";
+		String sqlDeleteBook = "DELETE FROM Books WHERE idBook=" + id.toString() + ";";
 		try {
 			executeSQLUpdate(sqlDeleteCharacterSentences);
 			executeSQLUpdate(sqlDeleteSentences);
