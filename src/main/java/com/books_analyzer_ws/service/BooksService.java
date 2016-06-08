@@ -7,6 +7,7 @@ import com.books_analyzer_ws.BookFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 	import com.fasterxml.jackson.databind.ObjectMapper;
 
+// BooksService provides the JSON needed for responding to the clients
 public class BooksService {
 		private DBInterface dbInterface;
 		private ArrayList<Book> books;
@@ -20,14 +21,8 @@ public class BooksService {
 		}
 
 		public String buildResponse(String t, String a, String c, String u) {
-			this.books.add(bookFactory.buildBook(t,a,c,u));
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				return ("{\"books\":" + mapper.writeValueAsString(this.books) + "}".replaceAll("#", "'"));
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-				return null;
-			}
+			books.add(bookFactory.buildBook(t,a,c,u));
+			return getJSON();
 		}
 
 		public String findBooks(String title, String author) {
@@ -43,33 +38,30 @@ public class BooksService {
 		}
 
 		public String addBook(String title, String author, String url) {
-			Book book = new BookFactory().buildBook(title,author,null,url);
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				return ("{\"books\":" + mapper.writeValueAsString(book) + "}".replaceAll("#", "'"));
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-				return null;
-			}
+			books.add(bookFactory.buildBook(title,author,null,url));
+			return getJSON();
 		}
 
 		public String findBookById(Integer id) {
 			String[] titleAuthor = dbInterface.getTitleAuthorById(id);
-			Book book = new BookFactory().buildBook(titleAuthor[0],titleAuthor[1], null,null);
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				return ("{\"books\":" + mapper.writeValueAsString(book) + "}".replaceAll("#", "'"));
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-				return null;
-			}
+			books.add(new BookFactory().buildBook(titleAuthor[0],titleAuthor[1], null,null));
+			return getJSON();
 		}
 
 		public String updateBook(Integer id, String title, String author) {
 			dbInterface.editBookById(id, title, author);
 			return findBookById(id);
 		}
-
+		
+		public String getJSON() {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				return (("{\"books\":" + mapper.writeValueAsString(books) + "}").replaceAll("#", "'"));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
 
 	}
 
