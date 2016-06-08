@@ -45,6 +45,11 @@ dependencies {
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     compile("com.h2database:h2")
+compile(group: 'org.springframework.boot', name: 'spring-boot-starter-security')
+    compile(group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.3.RELEASE')
+    compile(group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.8.RELEASE') {
+        exclude(module: 'jackson-mapper-asl') // We already have a more recent jackson via Spring Boot
+    }
 }
 
 
