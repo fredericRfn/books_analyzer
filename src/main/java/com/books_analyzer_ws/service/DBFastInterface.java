@@ -57,6 +57,19 @@ public class DBFastInterface {
 			return true;
 		}
 	}
+	
+	public int getBookState(Integer id) {
+		ResultSet rs;
+		String sql = "SELECT flag FROM Books WHERE id=" + id + ";";
+		try {
+			rs = executeSQLQuery(sql);
+			rs.next();
+			return rs.getInt("flag");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 	public Book importBookFromDB(Integer id, String title, String author) {
 		if(id<=0) { return null; }
@@ -114,18 +127,16 @@ public class DBFastInterface {
 	
 	// FUNCTIONS NEEDED BY THE API
 	// Function called with GET /books?
-	public ArrayList<String> getBooks(String title, String author) {
-		String sql = "SELECT * FROM Books ";
+	public ArrayList<String> getCompletedBooks(String title, String author) {
+		String sql = "SELECT * FROM Books WHERE flag=4 ";
 		ArrayList<String> formattedBooks = new ArrayList<String>();
-		if(author != null && title != null) {
-			sql = sql + "WHERE author='" + author + "' AND title='" + title + "';";;
+		if (author!=null) {
+			sql = sql + "AND author='" + author + "' ";
 		}
-		else if (author!=null) {
-			sql = sql + "WHERE author='" + author + "';";
+		if (title!=null) {
+			sql = sql + "AND title='" + title + "' ";
 		}
-		else if (title!=null) {
-			sql = sql + "WHERE title='" + title + "';";
-		}
+		sql = sql + ";";
 		ResultSet rs;
 		try {
 			rs = executeSQLQuery(sql);

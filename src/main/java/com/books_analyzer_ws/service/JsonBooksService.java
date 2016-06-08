@@ -30,7 +30,7 @@ public class JsonBooksService {
 		
 		// GET /books or GET /books?title=...&author=...
 		public String findBooks(String title, String author) {
-			ArrayList<String> books = dbInterface.getBooks(title, author);
+			ArrayList<String> books = dbInterface.getCompletedBooks(title, author);
 			String response = "{\"books\":[";
 			for(String s: books) { response = response + s + ","; }
 			response = response + "]}";
@@ -40,8 +40,26 @@ public class JsonBooksService {
 		// GET /books/id
 		public String findBookById(Integer id) {
 			String[] titleAuthor = dbInterface.getTitleAuthorById(id);
-			books.add(dbInterface.importBookFromDB(id, titleAuthor[0],titleAuthor[1]));
-			return getBooksJSON();
+			int bookState = dbInterface.getBookState(id);
+			if(bookState==4) { // If the requested book is completely stored in the db
+				books.add(dbInterface.importBookFromDB(id, titleAuthor[0],titleAuthor[1]));
+				return getBooksJSON();
+			} else {
+				return "{\"status\":\"" + getStatusMessage(bookState) + "\"}";
+			}
+		}
+
+		private String getStatusMessage(int bookState) {
+			String status;
+			switch(bookState) {
+				case 0: status = "The book is being analyzed"; break;
+				case 1: status = "The sentences are being processed"; break;
+				case 2: status = "The characters are being stored"; break;
+				case 3: status = "The attribution of Sentences to Characters are being stored"; break;
+				case 4: status = "The book metadata are stored"; break;
+				default: status = "Sorry, a problem occured..."; break;
+			}
+			return status;
 		}
 
 		// DELETE /books/id
