@@ -1,4 +1,4 @@
-package com.books_analyzer.controller;
+package com.books_analyzer_ws.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.books_analyzer.service.APIService;
+import com.books_analyzer_ws.service.APIService;
 
 @RestController
 public class APIController {

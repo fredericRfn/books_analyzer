@@ -1,9 +1,9 @@
-package com.books_analyzer.service;
+package com.books_analyzer_ws.service;
 
 import java.util.ArrayList;
 
-import com.books_analyzer.Book;
-import com.books_analyzer.BookFactory;
+import com.books_analyzer_ws.Book;
+import com.books_analyzer_ws.BookFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 	import com.fasterxml.jackson.databind.ObjectMapper;
 

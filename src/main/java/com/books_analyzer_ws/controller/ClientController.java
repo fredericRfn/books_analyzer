@@ -1,4 +1,4 @@
-package com.books_analyzer.controller;
+package com.books_analyzer_ws.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.SearchResults;

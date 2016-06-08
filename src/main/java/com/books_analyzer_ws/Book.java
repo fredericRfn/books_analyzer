@@ -1,4 +1,4 @@
-package com.books_analyzer;
+package com.books_analyzer_ws;
 
 import java.util.ArrayList;
 import java.util.HashMap;

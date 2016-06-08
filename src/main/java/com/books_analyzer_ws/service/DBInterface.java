@@ -1,4 +1,4 @@
-package com.books_analyzer.service;
+package com.books_analyzer_ws.service;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.books_analyzer.Book;
-import com.books_analyzer.Character;
-import com.books_analyzer.CharacterSentence;
-import com.books_analyzer.Sentence;
+import com.books_analyzer_ws.Book;
+import com.books_analyzer_ws.Character;
+import com.books_analyzer_ws.CharacterSentence;
+import com.books_analyzer_ws.Sentence;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
 import com.mysql.jdbc.Statement;

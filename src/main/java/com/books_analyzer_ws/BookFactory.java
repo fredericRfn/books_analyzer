@@ -1,4 +1,4 @@
-package com.books_analyzer;
+package com.books_analyzer_ws;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 
-import com.books_analyzer.service.DBInterface;
+import com.books_analyzer_ws.service.DBInterface;
 
 public class BookFactory {
 	private DBInterface dbInterface;

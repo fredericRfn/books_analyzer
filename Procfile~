@@ -1,1 +1,0 @@
-web: java -Dserver.port=$PORT -jar  build/libs/operaciones-2016.war

@@ -1,4 +1,4 @@
-package com.books_analyzer.controller;
+package com.books_analyzer_ws.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.books_analyzer.service.ProcessBookService;
+import com.books_analyzer_ws.service.ProcessBookService;
 
 
 @RestController

@@ -1,4 +1,4 @@
-package com.books_analyzer;
+package com.books_analyzer_ws;
 
 public class Sentence {
 	public final String content;

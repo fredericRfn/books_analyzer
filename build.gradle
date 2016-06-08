@@ -17,7 +17,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'war'
 
 war {
-    baseName = 'books_analyzer'
+    baseName = 'books_analyzer_ws'
     version = '2016'
 }
 
@@ -30,7 +30,7 @@ configurations {
 }
 
 bootRepackage {
-    mainClass = 'com.books_analyzer.Application'
+    mainClass = 'com.books_analyzer_ws.Application'
 }
 
 dependencies {
