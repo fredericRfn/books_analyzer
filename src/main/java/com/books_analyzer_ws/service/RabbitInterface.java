@@ -16,8 +16,7 @@ public class RabbitInterface {
 		Connection connection;
 		try {
 			 connection = factory.newConnection();
-			 Channel channel = connection.createChannel();
-			 
+			 Channel channel = connection.createChannel();	 
 			 channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 			 String message = Integer.valueOf(id).toString();
 			 channel.basicPublish("", QUEUE_NAME, null, message.getBytes());

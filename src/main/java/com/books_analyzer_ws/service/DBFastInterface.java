@@ -46,7 +46,7 @@ public class DBFastInterface {
 	
 	public boolean isPresentInDB(String title, String author) {
 		try {
-			ResultSet rs = executeSQLQuery("SELECT idBook FROM Books WHERE title='" + title + " AND author='" + author + "';");
+			ResultSet rs = executeSQLQuery("SELECT idBook FROM Books WHERE title='" + title + "' AND author='" + author + "';");
 			if (rs.next()) {
 				return true;
 			}
