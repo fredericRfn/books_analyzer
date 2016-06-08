@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.books_analyzer_ws.service.BooksService;
 
+//This controller is responsible for answering the requests coming from the API
 @RestController
 public class APIController {
 	@CrossOrigin

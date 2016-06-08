@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.books_analyzer_ws.service.BooksService;
 
+// This controller is responsible for answering the petitions coming from the client MVC app
 @RestController
 public class ClientController {
 	@CrossOrigin

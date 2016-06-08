@@ -30,7 +30,6 @@ public class BooksService {
 			}
 		}
 
-
 		public String findBooks(String title, String author) {
 			ArrayList<String> books = dbInterface.getBooks(title, author);
 			String response = "{\"books\":[";
