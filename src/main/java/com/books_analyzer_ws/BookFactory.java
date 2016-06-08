@@ -9,24 +9,24 @@ import java.nio.charset.Charset;
 import com.books_analyzer_ws.service.DBInterface;
 
 public class BookFactory {
-	private DBInterface dbInterface;
+	private DBBookExporter dBBookExporter;
 	// This constructor is called from the search controller
 	public BookFactory() {
-		this.dbInterface = new DBInterface();
+		this.dBBookExporter = new DBBookExporter();
 	}
 	
 	public Book buildBook(String title, String author, String character, String url) {
 		Book book = null;
 		// If the book is provided by the client
 		if(url!=null && title!=null && author!=null) { 
-			book = new Book(title, author);
+			book = new Book(title, author, url);
 			book.analyzeCharacters(getTxtFromUrl(url));
-			dbInterface.exportToDatabase(book);
+			dBBookExporter.export(book);
 		}
 		// If the book is not provided by the client
 		else if(url==null){ // Let's check our database
-			book = new Book(title, author);
-			book.addCharactersFromDB(dbInterface.importCharactersFromDB(title, author));
+			book = new Book(title, author, url);
+			book.addCharactersFromDB(dBBookExporter.importCharactersFromDB(title, author));
 		}
 		return book;
 	}

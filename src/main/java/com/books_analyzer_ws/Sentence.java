@@ -20,7 +20,6 @@ public class Sentence {
 	}
 	
 	public boolean references(Character character) {
-		return this.content.toLowerCase().contains(character.getName().toLowerCase());
-		
+		return this.content.toLowerCase().contains(character.getName().toLowerCase());	
 	}
 }

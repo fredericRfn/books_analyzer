@@ -11,13 +11,15 @@ public class Book {
 	public final String title;
 	public final String author;
 	public final String language;
+	@JsonIgnore private String url;
 	public ArrayList<Character> characters;
 	@JsonIgnore private ArrayList<Sentence> sentences;
 	@JsonIgnore private ArrayList<CharacterSentence> characterSentences;
 	
-	public Book(String t, String a) {
+	public Book(String t, String a, String u) {
 		this.title = t;
 		this.author = a;
+		this.url = u;
 		this.language = "EN";
 		this.sentences = new ArrayList<Sentence>();
 		this.characters = new ArrayList<Character>();
@@ -27,6 +29,7 @@ public class Book {
 	public String getTitle() { return this.title; }
 	public String getAuthor() { return this.author; }
 	public String getLanguage() { return this.language; }
+	public String getUrl() { return this.url; }
 	public ArrayList<Sentence> getSentences() { return this.sentences; }
 	public ArrayList<Character> getCharacters() { return this.characters; }
 	public ArrayList<CharacterSentence> getCharacterSentences() { return this.characterSentences; }
@@ -46,7 +49,7 @@ public class Book {
 		System.out.println("Analisis of:" + this.title + " written by " + this.author + " complete.");
 	}
 	
-	public void addCharactersFromDB(ArrayList<Character> c) {
+	public void setCharacters(ArrayList<Character> c) {
 		this.characters = c;
 	}
 
