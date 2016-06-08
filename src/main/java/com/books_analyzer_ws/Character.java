@@ -3,7 +3,6 @@ package com.books_analyzer_ws;
 import java.util.ArrayList;
 
 public class Character {
-	private int id;
 	public final String name;
 	public ArrayList<String> sentences;
 	

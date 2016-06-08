@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 import com.books_analyzer_ws.Book;
 import com.books_analyzer_ws.Character;
-import com.books_analyzer_ws.CharacterSentence;
-import com.books_analyzer_ws.Sentence;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
 import com.mysql.jdbc.Statement;
