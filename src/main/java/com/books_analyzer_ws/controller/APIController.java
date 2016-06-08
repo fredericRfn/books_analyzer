@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.books_analyzer_ws.service.BooksService;
+import com.books_analyzer_ws.service.JsonBooksService;
 
 //This controller is responsible for answering the requests coming from the API
 //Except GET /books/id, called both by the API and the client
@@ -20,13 +20,13 @@ public class APIController {
     	@RequestParam(value = "title", required=false) String title,
     	@RequestParam(value = "author", required=false) String author
     )  {
-    	BooksService booksService = new BooksService();
+		JsonBooksService booksService = new JsonBooksService();
     	return booksService.findBooks(title,author);
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.GET })
     public String getBook(@PathVariable("id") Integer id )  {
-		BooksService booksService = new BooksService();
+		JsonBooksService booksService = new JsonBooksService();
     	return booksService.findBookById(id);
     }
 	@CrossOrigin
@@ -36,13 +36,13 @@ public class APIController {
     	@RequestBody(required=false) String title,
     	@RequestBody(required=false) String author
     )  {
-		BooksService booksService = new BooksService();
-    	return booksService.updateBook(id, title, author);
+		JsonBooksService booksService = new JsonBooksService();
+    	return booksService.updateBookById(id, title, author);
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.DELETE })
     public String deleteBook(@PathVariable("id") Integer id)  {
-		BooksService booksService = new BooksService();
+		JsonBooksService booksService = new JsonBooksService();
     	return booksService.deleteBooks(id);
     }
 	@CrossOrigin
@@ -52,7 +52,7 @@ public class APIController {
     	@RequestParam(value = "author", required=false) String author,
     	@RequestParam(value = "url", required=false) String url
     )  {
-		BooksService booksService = new BooksService();
+		JsonBooksService booksService = new JsonBooksService();
     	return booksService.addBook(title,author,url);
     }
 }

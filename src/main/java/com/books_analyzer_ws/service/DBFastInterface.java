@@ -22,7 +22,7 @@ public class DBFastInterface {
 			e.printStackTrace();
 		}
 		//this.url = "jdbc:mysql://localhost:3306/STG_BOOKS_2?user=root&password=root"; // local configuration
-		this.url = "jdbc:mysql://54.191.210.230:3306/STG_BOOKS_2?user=root&password=0"; // EC2 configuration
+		this.url = "jdbc:mysql://54.191.210.230:3306/STG_Books?user=root&password=0"; // EC2 configuration
 		
 	}
 
@@ -57,15 +57,10 @@ public class DBFastInterface {
 			return true;
 		}
 	}
-	public Integer getBookId(String title, String author) {
-		//return hash(title + author);
-		return 0;
-	}
 
-	public Book importBookFromDB(String title, String author) {
-		Integer idInDB = getBookId(title, author);
-		if(idInDB<0) { return null; }
-		System.out.println("Book found with id " + idInDB );
+	public Book importBookFromDB(Integer id, String title, String author) {
+		if(id<=0) { return null; }
+		System.out.println("Book found with id " + id );
 		ResultSet rsBook = null;
 		ResultSet rsSentences = null;
 		ArrayList<Character> characters = new ArrayList<Character>();
@@ -74,16 +69,16 @@ public class DBFastInterface {
 		// This object is storing the name of a character, and all the sentences referencing it
 		HashMap<String, ArrayList<String>> charactersMap = new HashMap<String, ArrayList<String>>();
 		try {
-			System.out.println("Retrieve from Database the book: " + idInDB);
+			System.out.println("Retrieve from Database the book: " + id);
 			// Get book data
-			rsBook = executeSQLQuery("SELECT title,author,language FROM Books WHERE idBook='" + idInDB.toString() + "';");
+			rsBook = executeSQLQuery("SELECT title,author,language FROM Books WHERE idBook='" + id.toString() + "';");
 			rsBook.next();
 			// Get sentences and characters data by joining Character CharacterSentence Sentence
 			rsSentences = executeSQLQuery(""
 					+ "SELECT * FROM Characters "
 					+ "INNER JOIN CharacterSentence ON Characters.idCharacter = CharacterSentence.idCharacter "
 					+ "INNER JOIN Sentences ON CharacterSentence.idSentence = Sentences.idSentence "
-					+ "WHERE idBook = '" + idInDB + "';");
+					+ "WHERE idBook = '" + id + "';");
 			// Build the character objects (which include sentences)
 			// For each sentence referencing a character (obtained thanks to the join)
 			while(rsSentences.next()) {
@@ -106,8 +101,9 @@ public class DBFastInterface {
 		return book;
 	}
 	public void addBookData(String title, String author, String url, int flag) {
+		String id = Integer.valueOf((title + author).hashCode()).toString();
 		String sqlBook = "INSERT INTO Books(id, title, author, language, url, flag) VALUES('"
-		  + String.join("','", getBookId(title, author).toString(), escape(title), escape(author), "EN",escape(url),"0") + "');\n";
+		  + String.join("','", id, escape(title), escape(author), "EN",escape(url),"0") + "');\n";
 		System.out.println(sqlBook);
 		try {
 			executeSQLUpdate(sqlBook);
@@ -117,7 +113,7 @@ public class DBFastInterface {
 	}
 	
 	// FUNCTIONS NEEDED BY THE API
-	// Function called with GET /books?author=author&character=character
+	// Function called with GET /books?
 	public ArrayList<String> getBooks(String title, String author) {
 		String sql = "SELECT * FROM Books ";
 		ArrayList<String> formattedBooks = new ArrayList<String>();
@@ -140,7 +136,6 @@ public class DBFastInterface {
 						+ "\"language\":\"" + rs.getString("language") + "\"}");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return formattedBooks;
@@ -164,7 +159,8 @@ public class DBFastInterface {
 	
 	// Function called with DELETE /books/id
 	public String deleteBook(Integer id) {
-		String sqlDeleteCharacterSentences = "DELETE FROM Sentences, CharacterSentence, Characters " +
+		String sqlDeleteCharacterSentences = 
+				"DELETE FROM Sentences, CharacterSentence, Characters " +
 				"USING Sentences INNER JOIN CharacterSentence INNER JOIN Characters " +
 				"WHERE Sentences.idSentence=CharacterSentence.idSentence " +
 				"AND Characters.idCharacter=CharacterSentence.idCharacter " +
