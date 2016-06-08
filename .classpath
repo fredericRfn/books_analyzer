@@ -57,6 +57,11 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/frederic/.gradle/caches/modules-2/files-2.1/com.rabbitmq/amqp-client/2.3.1/1b44c91a8593e4dde47407b950d21814ec19992c/amqp-client-2.3.1.jar" sourcepath="/home/frederic/.gradle/caches/modules-2/files-2.1/com.rabbitmq/amqp-client/2.3.1/4a8f85aa2606886ee2826a23b2bc709dbe26f422/amqp-client-2.3.1-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="/home/frederic/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.3.2.RELEASE/cd57af767a29484de124b8ed46ae82d974cc6901/spring-boot-starter-tomcat-1.3.2.RELEASE.jar" sourcepath="/home/frederic/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.3.2.RELEASE/b6fdac1387ed31d3c97d86cbb92d964f706b512d/spring-boot-starter-tomcat-1.3.2.RELEASE-sources.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -128,6 +133,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/frederic/.gradle/caches/modules-2/files-2.1/com.samskivert/jmustache/1.11/584ff0eaea6e751ecfccfda08617c0a2746e4ce2/jmustache-1.11.jar" sourcepath="/home/frederic/.gradle/caches/modules-2/files-2.1/com.samskivert/jmustache/1.11/823036ff98c893c840a54fb9dabf8189b3e0a128/jmustache-1.11-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/frederic/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.1/11c98b99ad538f2f67633afd4d7f4d98ecfbb408/commons-cli-1.1.jar" sourcepath="/home/frederic/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.1/5111aa2ad78d87a8a096d0cf80e7e70bb76fa91e/commons-cli-1.1-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/frederic/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/1.2/ad6ae511ca4608a18317fcb19850fd113bb2ae8/commons-io-1.2.jar" sourcepath="/home/frederic/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/1.2/8d9e9793b17242dd19b7e54abea4518a26a09d0e/commons-io-1.2-sources.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>

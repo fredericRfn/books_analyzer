@@ -27,8 +27,12 @@ public class UrlResourceService {
 			else { // The mentioned book IS NOT in our database
 				if(url.length()>1) { // If the user provides its content
 					dbInterface.addBookData(title,author,url,0);// INSERT INTO Books(...)
-					RabbitInterface.requestAnalysis(idBook);
-					return "{\"url\":" + urlBase + "books/" + idBook + "}";
+					if (RabbitInterface.requestAnalysis(idBook)) {
+						return "{\"url\":" + urlBase + "books/" + idBook + "}";
+					} else {
+						return "{\"error\":\"Internal system error: unable to"
+								+ "send the task to the RabbitMQ broker\"}";
+					}
 				}
 				else { // If there is no way for us to process the book (no db, no url)
 					return "{\"error\":\"No info about this book "
