@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.books_analyzer_ws.service.APIService;
+import com.books_analyzer_ws.service.BooksService;
 
 @RestController
 public class APIController {
@@ -18,14 +18,14 @@ public class APIController {
     	@RequestParam(value = "title", required=false) String title,
     	@RequestParam(value = "author", required=false) String author
     )  {
-    	APIService apiService = new APIService();
-    	return apiService.findBooks(title,author);
+    	BooksService booksService = new BooksService();
+    	return booksService.findBooks(title,author);
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.GET })
     public String getBook(@PathVariable("id") Integer id )  {
-    	APIService apiService = new APIService();
-    	return apiService.findBookById(id);
+		BooksService booksService = new BooksService();
+    	return booksService.findBookById(id);
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.PUT })
@@ -34,14 +34,14 @@ public class APIController {
     	@RequestBody(required=false) String title,
     	@RequestBody(required=false) String author
     )  {
-    	APIService apiService = new APIService();
-    	return apiService.updateBook(id, title, author);
+		BooksService booksService = new BooksService();
+    	return booksService.updateBook(id, title, author);
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.DELETE })
     public String deleteBook(@PathVariable("id") Integer id)  {
-    	APIService apiService = new APIService();
-    	return apiService.deleteBooks(id);
+		BooksService booksService = new BooksService();
+    	return booksService.deleteBooks(id);
     }
 	@CrossOrigin
     @RequestMapping(value = "/books", method = { RequestMethod.POST })
@@ -50,7 +50,7 @@ public class APIController {
     	@RequestParam(value = "author", required=false) String author,
     	@RequestParam(value = "url", required=false) String url
     )  {
-    	APIService apiService = new APIService();
-    	return apiService.addBook(title,author,url);
+		BooksService booksService = new BooksService();
+    	return booksService.addBook(title,author,url);
     }
 }

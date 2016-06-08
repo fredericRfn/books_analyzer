@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.books_analyzer_ws.service.ProcessBookService;
-
+import com.books_analyzer_ws.service.BooksService;
 
 @RestController
 public class SearchController {
@@ -20,7 +19,7 @@ public class SearchController {
 		@RequestParam(value = "url", required=false) String url,
 		@RequestParam(value = "callback", required=false) String callback
     )  {
-    	ProcessBookService processBookService = new ProcessBookService();
-    	return processBookService.buildResponse(title, author, character, url);
+    	BooksService booksService = new BooksService();
+    	return booksService.buildResponse(title, author, character, url);
     }
 }
