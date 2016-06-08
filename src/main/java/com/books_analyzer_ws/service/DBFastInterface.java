@@ -22,7 +22,7 @@ public class DBFastInterface {
 			e.printStackTrace();
 		}
 		//this.url = "jdbc:mysql://localhost:3306/STG_BOOKS_2?user=root&password=root"; // local configuration
-		this.url = "jdbc:mysql://54.191.210.230:3306/STG_Books?user=root&password=0"; // EC2 configuration
+		this.url = "jdbc:mysql://54.191.210.230:3306/STG_BOOKS_2?user=root&password=0"; // EC2 configuration
 		
 	}
 
