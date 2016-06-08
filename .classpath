@@ -17,7 +17,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/frederic/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.3.2.RELEASE/11876c0f2e6c9b00530e919f915d0ff6f665f7bc/spring-boot-starter-web-1.3.2.RELEASE.jar" sourcepath="/home/frederic/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.3.2.RELEASE/3b9393993d1267822157decea023859ae1e4dfb8/spring-boot-starter-web-1.3.2.RELEASE-sources.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -293,5 +292,6 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
