@@ -1,6 +1,7 @@
 package com.books_analyzer_ws.service;
 
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 import com.rabbitmq.client.Connection;
 
 import java.io.IOException;
@@ -8,7 +9,7 @@ import java.io.IOException;
 import com.rabbitmq.client.Channel;
 
 public class RabbitInterface {
-	private final static String QUEUE_NAME = "process";
+	private final static String QUEUE_NAME = "jobs_queue";
 	
 	public static boolean requestAnalysis(String id) {
 		ConnectionFactory factory = new ConnectionFactory();
@@ -17,9 +18,9 @@ public class RabbitInterface {
 		try {
 			 connection = factory.newConnection();
 			 Channel channel = connection.createChannel();	 
-			 channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+			 channel.queueDeclare(QUEUE_NAME, true, false, false, null);
 			 String message = Integer.valueOf(id).toString();
-			 channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+			 channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
 			 System.out.println(" [x] Sent '" + message + "'");
 			 channel.close();
 			 connection.close();
