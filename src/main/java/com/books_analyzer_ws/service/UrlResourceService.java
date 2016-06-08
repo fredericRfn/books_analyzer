@@ -3,7 +3,7 @@ package com.books_analyzer_ws.service;
 // BooksService provides the JSON needed for responding to the clients
 public class UrlResourceService {
 		private static DBFastInterface dbInterface;
-		private final static String urlBase = "https://books-analyzer-ws.herokuapp.com/";
+		private final static String urlBase = "https://ws-books-analyzer.herokuapp.com/";
 
 		public UrlResourceService() {
 			UrlResourceService.dbInterface = new DBFastInterface();
