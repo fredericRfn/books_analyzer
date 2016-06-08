@@ -25,14 +25,14 @@ public class APIController {
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.GET })
-    public String getBook(@PathVariable("id") Integer id )  {
+    public String getBook(@PathVariable("id") String id )  {
 		JsonBooksService booksService = new JsonBooksService();
     	return booksService.findBookById(id);
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.PUT })
     public String editBook(
-    	@PathVariable("id") Integer id,
+    	@PathVariable("id") String id,
     	@RequestBody(required=false) String title,
     	@RequestBody(required=false) String author
     )  {
@@ -41,7 +41,7 @@ public class APIController {
     }
 	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.DELETE })
-    public String deleteBook(@PathVariable("id") Integer id)  {
+    public String deleteBook(@PathVariable("id") String id)  {
 		JsonBooksService booksService = new JsonBooksService();
     	return booksService.deleteBooks(id);
     }
