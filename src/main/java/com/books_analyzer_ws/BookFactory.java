@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 
-import com.books_analyzer_ws.service.DBInterface;
+import com.books_analyzer_ws.service.DBBookExporter;
 
 public class BookFactory {
 	private DBBookExporter dBBookExporter;
@@ -15,20 +15,10 @@ public class BookFactory {
 		this.dBBookExporter = new DBBookExporter();
 	}
 	
-	public Book buildBook(String title, String author, String character, String url) {
-		Book book = null;
-		// If the book is provided by the client
-		if(url!=null && title!=null && author!=null) { 
-			book = new Book(title, author, url);
-			book.analyzeCharacters(getTxtFromUrl(url));
-			dBBookExporter.export(book);
-		}
-		// If the book is not provided by the client
-		else if(url==null){ // Let's check our database
-			book = new Book(title, author, url);
-			book.addCharactersFromDB(dBBookExporter.importCharactersFromDB(title, author));
-		}
-		return book;
+	public void buildBook(String title, String author, String character, String url) {
+		Book book = new Book(title, author, url);
+		book.analyze(getTxtFromUrl(url));
+		dBBookExporter.export(book);
 	}
 	
 	private String getTxtFromUrl(String urlString) {

@@ -34,7 +34,7 @@ public class Book {
 	public ArrayList<Character> getCharacters() { return this.characters; }
 	public ArrayList<CharacterSentence> getCharacterSentences() { return this.characterSentences; }
 	
-	public void analyzeCharacters(String content) {
+	public void analyze(String content) {
 		System.out.println("Analisis requested of:" + this.title + " written by " + this.author);
 		
 		System.out.println("Step1: generating sentences");
