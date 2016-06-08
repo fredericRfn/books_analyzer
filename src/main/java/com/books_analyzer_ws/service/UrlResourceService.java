@@ -3,12 +3,10 @@ package com.books_analyzer_ws.service;
 // BooksService provides the JSON needed for responding to the clients
 public class UrlResourceService {
 		private static DBFastInterface dbInterface;
-		private static RabbitInterface rabbitInterface;
 		private final static String urlBase = "https://books-analyzer-ws.herokuapp.com/";
 
 		public UrlResourceService() {
 			UrlResourceService.dbInterface = new DBFastInterface();
-			UrlResourceService.rabbitInterface = new RabbitInterface();
 		}
 		
 		// Returns {"url":urlToResource} or {"error":explanation}
@@ -29,7 +27,7 @@ public class UrlResourceService {
 			else { // The mentioned book IS NOT in our database
 				if(url.length()>1) { // If the user provides its content
 					dbInterface.addBookData(title,author,url,0);// INSERT INTO Books(...)
-					rabbitInterface.requestAnalysis(idBook);
+					RabbitInterface.requestAnalysis(idBook);
 					return "{\"url\":" + urlBase + "books/" + idBook + "}";
 				}
 				else { // If there is no way for us to process the book (no db, no url)
