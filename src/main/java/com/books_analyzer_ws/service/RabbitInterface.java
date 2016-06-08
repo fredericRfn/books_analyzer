@@ -10,7 +10,7 @@ import com.rabbitmq.client.Channel;
 public class RabbitInterface {
 	private final static String QUEUE_NAME = "process";
 	
-	public static boolean requestAnalysis(int id) {
+	public static boolean requestAnalysis(String id) {
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("54.191.210.230");
 		Connection connection;

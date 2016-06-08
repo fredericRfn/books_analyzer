@@ -20,7 +20,7 @@ public class UrlResourceService {
 		}
 		
 		public static String getSingleAnalysisURL(String title, String author, String url) {
-			int idBook = (title+author).hashCode();
+			String idBook = IdCreator.createIdFromText(title+author);
 			if(dbInterface.isPresentInDB(title, author)){ 
 				return "{\"url\":" + urlBase + "books/" + idBook + "}";
 			}

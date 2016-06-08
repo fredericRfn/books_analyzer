@@ -38,7 +38,7 @@ public class JsonBooksService {
 		}
 		
 		// GET /books/id
-		public String findBookById(Integer id) {
+		public String findBookById(String id) {
 			String[] titleAuthor = dbInterface.getTitleAuthorById(id);
 			int bookState = dbInterface.getBookState(id);
 			if(bookState==4) { // If the requested book is completely stored in the db
@@ -63,7 +63,7 @@ public class JsonBooksService {
 		}
 
 		// DELETE /books/id
-		public String deleteBooks(Integer id) {
+		public String deleteBooks(String id) {
 			return dbInterface.deleteBook(id);
 		}
 		
@@ -73,7 +73,7 @@ public class JsonBooksService {
 		}
 		
 		// PUT /books/id?title=...&author=...
-		public String updateBookById(Integer id, String title, String author) {
+		public String updateBookById(String id, String title, String author) {
 			dbInterface.editBookById(id, title, author);
 			return findBookById(id);
 		}

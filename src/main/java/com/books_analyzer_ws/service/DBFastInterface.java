@@ -45,7 +45,6 @@ public class DBFastInterface {
 	}
 	
 	public boolean isPresentInDB(String title, String author) {
-		// This method will change, the idBook is hash_function(title + author)
 		try {
 			ResultSet rs = executeSQLQuery("SELECT idBook FROM Books WHERE title='" + title + " AND author='" + author + "';");
 			if (rs.next()) {
@@ -58,9 +57,9 @@ public class DBFastInterface {
 		}
 	}
 	
-	public int getBookState(Integer id) {
+	public int getBookState(String id) {
 		ResultSet rs;
-		String sql = "SELECT flag FROM Books WHERE id=" + id + ";";
+		String sql = "SELECT flag FROM Books WHERE idBook=" + id + ";";
 		try {
 			rs = executeSQLQuery(sql);
 			rs.next();
@@ -71,9 +70,7 @@ public class DBFastInterface {
 		}
 	}
 
-	public Book importBookFromDB(Integer id, String title, String author) {
-		if(id<=0) { return null; }
-		System.out.println("Book found with id " + id );
+	public Book importBookFromDB(String id, String title, String author) {
 		ResultSet rsBook = null;
 		ResultSet rsSentences = null;
 		ArrayList<Character> characters = new ArrayList<Character>();
@@ -84,7 +81,7 @@ public class DBFastInterface {
 		try {
 			System.out.println("Retrieve from Database the book: " + id);
 			// Get book data
-			rsBook = executeSQLQuery("SELECT title,author,language FROM Books WHERE idBook='" + id.toString() + "';");
+			rsBook = executeSQLQuery("SELECT title,author,language FROM Books WHERE idBook='" + id + "';");
 			rsBook.next();
 			// Get sentences and characters data by joining Character CharacterSentence Sentence
 			rsSentences = executeSQLQuery(""
@@ -114,8 +111,8 @@ public class DBFastInterface {
 		return book;
 	}
 	public void addBookData(String title, String author, String url, int flag) {
-		String id = Integer.valueOf((title + author).hashCode()).toString();
-		String sqlBook = "INSERT INTO Books(id, title, author, language, url, flag) VALUES('"
+		String id = IdCreator.createIdFromText(title + author);
+		String sqlBook = "INSERT INTO Books(idBook, title, author, language, url, flag) VALUES('"
 		  + String.join("','", id, escape(title), escape(author), "EN",escape(url),"0") + "');\n";
 		System.out.println(sqlBook);
 		try {
@@ -152,8 +149,8 @@ public class DBFastInterface {
 		return formattedBooks;
 	}
 	// Function called with GET /books/id
-	public String[] getTitleAuthorById(Integer id) {
-		String sql = "SELECT * FROM Books WHERE idBook="+id.toString() + ";";
+	public String[] getTitleAuthorById(String id) {
+		String sql = "SELECT * FROM Books WHERE idBook="+id + ";";
 		try {
 			ResultSet rs = executeSQLQuery(sql);
 			if(rs.next()) {
@@ -169,17 +166,17 @@ public class DBFastInterface {
 	}
 	
 	// Function called with DELETE /books/id
-	public String deleteBook(Integer id) {
+	public String deleteBook(String id) {
 		String sqlDeleteCharacterSentences = 
 				"DELETE FROM Sentences, CharacterSentence, Characters " +
 				"USING Sentences INNER JOIN CharacterSentence INNER JOIN Characters " +
 				"WHERE Sentences.idSentence=CharacterSentence.idSentence " +
 				"AND Characters.idCharacter=CharacterSentence.idCharacter " +
-				"AND Sentences.idBook=" + id.toString() + ";";
-		String sqlDeleteSentences = "DELETE FROM Sentences WHERE idBook=" + id.toString() + ";";
+				"AND Sentences.idBook=" + id + ";";
+		String sqlDeleteSentences = "DELETE FROM Sentences WHERE idBook=" + id + ";";
 		String sqlCleanup = "DELETE FROM Characters " +
 				"WHERE idCharacter NOT IN (SELECT idCharacter FROM CharacterSentence);";
-		String sqlDeleteBook = "DELETE FROM Books WHERE idBook=" + id.toString() + ";";
+		String sqlDeleteBook = "DELETE FROM Books WHERE idBook=" + id + ";";
 		try {
 			executeSQLUpdate(sqlDeleteCharacterSentences);
 			executeSQLUpdate(sqlDeleteSentences);
@@ -194,8 +191,8 @@ public class DBFastInterface {
 	
 	// Function called with PUT /books/id?author= title= language=
 	// FOR NOW, does not work (the whole process of update)
-	public void editBookById(Integer id, String title, String author) {
-		String sql = "UPDATE Books SET title='" + title + "', author='" + author + "' WHERE idBook="+id.toString() + ";";
+	public void editBookById(String id, String title, String author) {
+		String sql = "UPDATE Books SET title='" + title + "', author='" + author + "' WHERE idBook="+id + ";";
 		try {
 			executeSQLQuery(sql);
 		} catch (SQLException e) {
