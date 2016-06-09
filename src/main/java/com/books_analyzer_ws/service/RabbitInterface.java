@@ -14,10 +14,10 @@ public class RabbitInterface {
 	public static boolean requestAnalysis(String id) {
 		System.out.println("Inside RabbitMQ interface with id:" + id);
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("fox.rmq.cloudamqp.com");
-		factory.setUsername("xhffrluv");
-		factory.setPassword("zIU2WWJtvjsDUv_BrwCoU60RWcekbpvP");
-		factory.setVirtualHost("xhffrluv");
+		factory.setHost("54.191.210.230");
+		factory.setUsername("guest");
+		factory.setPassword("guest");
+		factory.setPort(15672);
 		Connection connection;
 		try {
 			 connection = factory.newConnection();
