@@ -31,8 +31,8 @@ public class JsonBooksService {
 		// GET /books or GET /books?title=...&author=...
 		public String findBooks(String title, String author) {
 			ArrayList<String> books = dbInterface.getCompletedBooks(title, author);
-			String response = "{\"books\":[";
-			for(String s: books) { response = response + s + ","; }
+			String response = "{\"books\":[\"";
+			for(String s: books) { response = "\"" + response + s + "\","; }
 			response = response + "]}";
 			return response.replace(",]", "]");
 		}
@@ -45,21 +45,26 @@ public class JsonBooksService {
 				books.add(dbInterface.importBookFromDB(id, titleAuthor[0],titleAuthor[1]));
 				return getBooksJSON();
 			} else {
-				return "{\"status\":\"" + getStatusMessage(bookState) + "\"}";
+				return getMessage(id, bookState);
 			}
 		}
 
-		private String getStatusMessage(int bookState) {
-			String status;
+		private String getMessage(String id, int bookState) {
+			String message;
+			String type = "status";
 			switch(bookState) {
-				case 0: status = "The book is being analyzed"; break;
-				case 1: status = "The book content has been retrieved"; break;
-				case 2: status = "The sentences are being processed"; break;
-				case 3: status = "The characters are being stored"; break;
-				case 4: status = "The attribution of Sentences to Characters are being stored"; break;
-				default: status = "It seems that there is a problem with this book"; break;
+				case 0: message = "The book has been queued, waiting for a worker to process it"; break;
+				case 1: message = "The book content has been retrieved"; break;
+				case 2: message = "The sentences are being processed"; break;
+				case 3: message = "The characters are being stored"; break;
+				case 4: message = "The attribution of Sentences to Characters are being stored"; break;
+				default: 
+					message = "Sorry, in the end, it was not possible to process this book";
+					type = "error";
+					deleteBooks(id);
+					break;
 			}
-			return status;
+			return "{\"" + type + "\":\""+ message + "\"}";
 		}
 
 		// DELETE /books/id
