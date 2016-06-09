@@ -17,7 +17,6 @@ public class RabbitInterface {
 		factory.setHost("54.191.210.230");
 		factory.setUsername("guest");
 		factory.setPassword("guest");
-		factory.setPort(15672);
 		Connection connection;
 		try {
 			 connection = factory.newConnection();
