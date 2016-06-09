@@ -41,7 +41,7 @@ public class JsonBooksService {
 		public String findBookById(String id) {
 			String[] titleAuthor = dbInterface.getTitleAuthorById(id);
 			int bookState = dbInterface.getBookState(id);
-			if(bookState==4) { // If the requested book is completely stored in the db
+			if(bookState==5) { // If the requested book is completely stored in the db
 				books.add(dbInterface.importBookFromDB(id, titleAuthor[0],titleAuthor[1]));
 				return getBooksJSON();
 			} else {
@@ -53,11 +53,11 @@ public class JsonBooksService {
 			String status;
 			switch(bookState) {
 				case 0: status = "The book is being analyzed"; break;
-				case 1: status = "The sentences are being processed"; break;
-				case 2: status = "The characters are being stored"; break;
-				case 3: status = "The attribution of Sentences to Characters are being stored"; break;
-				case 4: status = "The book metadata are stored"; break;
-				default: status = "Sorry, a problem occured..."; break;
+				case 1: status = "The book content has been retrieved"; break;
+				case 2: status = "The sentences are being processed"; break;
+				case 3: status = "The characters are being stored"; break;
+				case 4: status = "The attribution of Sentences to Characters are being stored"; break;
+				default: status = "It seems that there is a problem with this book"; break;
 			}
 			return status;
 		}

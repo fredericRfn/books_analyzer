@@ -125,7 +125,7 @@ public class DBFastInterface {
 	// FUNCTIONS NEEDED BY THE API
 	// Function called with GET /books?
 	public ArrayList<String> getCompletedBooks(String title, String author) {
-		String sql = "SELECT * FROM Books WHERE flag=4 ";
+		String sql = "SELECT * FROM Books WHERE flag=5 ";
 		ArrayList<String> formattedBooks = new ArrayList<String>();
 		if (author!=null) {
 			sql = sql + "AND author='" + author + "' ";
