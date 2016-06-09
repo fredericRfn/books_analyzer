@@ -32,7 +32,7 @@ public class JsonBooksService {
 		public String findBooks(String title, String author) {
 			ArrayList<String> books = dbInterface.getCompletedBooks(title, author);
 			String response = "{\"books\":[\"";
-			for(String s: books) { response = "\"" + response + s + "\","; }
+			for(String s: books) { response = response + s + ","; }
 			response = response + "]}";
 			return response.replace(",]", "]");
 		}

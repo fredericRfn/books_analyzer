@@ -81,14 +81,14 @@ public class DBFastInterface {
 		try {
 			System.out.println("Retrieve from Database the book: " + id);
 			// Get book data
-			rsBook = executeSQLQuery("SELECT title,author,language FROM Books WHERE idBook='" + id + "';");
+			rsBook = executeSQLQuery("SELECT title,author,language FROM Books WHERE idBook=" + id + ";");
 			rsBook.next();
 			// Get sentences and characters data by joining Character CharacterSentence Sentence
 			rsSentences = executeSQLQuery(""
 					+ "SELECT * FROM Characters "
 					+ "INNER JOIN CharacterSentence ON Characters.idCharacter = CharacterSentence.idCharacter "
 					+ "INNER JOIN Sentences ON CharacterSentence.idSentence = Sentences.idSentence "
-					+ "WHERE idBook = '" + id + "';");
+					+ "WHERE idBook = " + id + ";");
 			// Build the character objects (which include sentences)
 			// For each sentence referencing a character (obtained thanks to the join)
 			while(rsSentences.next()) {
