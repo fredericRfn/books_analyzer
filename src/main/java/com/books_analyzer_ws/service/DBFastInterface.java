@@ -113,7 +113,7 @@ public class DBFastInterface {
 	public void addBookData(String title, String author, String url, int flag) {
 		String id = IdCreator.createIdFromText(title + author);
 		String sqlBook = "INSERT INTO Books(idBook, title, author, language, url, flag) VALUES('"
-		  + String.join("\",\"", id, title, author, "EN",url,"0") + "\");\n";
+		  + String.join("\",\"", id, title, author, "EN",url) + "\",0);\n";
 		System.out.println(sqlBook);
 		try {
 			executeSQLUpdate(sqlBook);
