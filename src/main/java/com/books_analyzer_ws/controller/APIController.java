@@ -24,6 +24,21 @@ public class APIController {
     	return booksService.findBooks(title,author);
     }
 	@CrossOrigin
+    @RequestMapping(value = "/characters/{name}", method = { RequestMethod.GET })
+    public String getCharacter(@PathVariable("name") String name,
+    	@RequestParam(value = "title", required=false) String title,
+    	@RequestParam(value = "author", required=false) String author
+    )  {
+		JsonBooksService booksService = new JsonBooksService();
+    	return booksService.findCharacter(name,title,author);
+    }
+	@CrossOrigin
+    @RequestMapping(value = "/authors", method = { RequestMethod.GET })
+    public String getAuthors()  {
+		JsonBooksService booksService = new JsonBooksService();
+    	return booksService.findAuthors();
+    }
+	@CrossOrigin
     @RequestMapping(value = "/books/{id}", method = { RequestMethod.GET })
     public String getBook(@PathVariable("id") String id )  {
 		JsonBooksService booksService = new JsonBooksService();

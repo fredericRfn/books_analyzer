@@ -204,4 +204,54 @@ public class DBFastInterface {
 	private String escape(String s) {
 		return s.replace("'", "#").replace("\"","#").replace("\n", "#");
 	}
+
+	public ArrayList<String> getAuthors() {
+		String sql = "SELECT DISTINCT author FROM Books WHERE flag=5;";
+		ArrayList<String> authors = new ArrayList<String>();
+		ResultSet rs;
+		try {
+			rs = executeSQLQuery(sql);
+			while(rs.next()) {
+				authors.add("{\"author\":\"" + rs.getString("author") + "\"}");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return authors;
+	}
+
+	public ArrayList<String> getBooksFilteredByCharacter(String title, String author, String characterName) {
+		ResultSet rs;
+		ArrayList <String> formattedSentences = new ArrayList<String>();
+		String stringBook;
+		String andConditions = "";
+		if (author!=null) {
+			andConditions = andConditions + "AND author=\"" + author + "\" ";
+		}
+		if (title!=null) {
+			andConditions = andConditions + "AND title=\"" + title + "\" ";
+		}
+		try {
+			rs = executeSQLQuery(""
+					+ "SELECT Sentences.idBook, title, author, language, Sentences.content FROM Characters "
+					+ "JOIN CharacterSentence ON Characters.idCharacter = CharacterSentence.idCharacter "
+					+ "JOIN Sentences ON CharacterSentence.idSentence = Sentences.idSentence "
+					+ "JOIN Books ON Books.idBook=Sentences.idBook "
+					+ "WHERE Characters.name=\"" + characterName + "\" " 
+					+ "AND Books.idBook IN (SELECT idBook FROM Books WHERE flag=5 "
+					+ andConditions + ") "
+					+ "ORDER BY Sentences.idBook ASC;");
+			
+			while(rs.next()) {
+				stringBook = "{\"title\":\"" + rs.getString("title") + "\","
+			    + "\"author\":\"" + rs.getString("author") + "\","
+				+ "\"language\":\"" + rs.getString("language") + "\","
+			    + "\"content\":\"" + rs.getString("content")  + "\"}";
+				formattedSentences.add(stringBook);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return formattedSentences;
+	}
 }

@@ -86,6 +86,24 @@ public class JsonBooksService {
 		public String updateBookById(String id, String title, String author) {
 			return dbInterface.editBookById(id, title, author);
 		}
+		
+		// GET /characters/name?title...&author=...
+		public String findCharacter(String characterName, String title, String author) {
+			ArrayList<String> books = dbInterface.getBooksFilteredByCharacter(title, author, characterName);
+			String response = "{\"name\":\"" + characterName + "\",\"sentences\":[";
+			for(String s: books) { response = response + s + ","; }
+			response = response + "]}";
+			return response.replace(",]", "]").replaceAll("#", "'");
+		}
+		
+		// GET /authors
+		public String findAuthors() {
+			ArrayList<String> authors = dbInterface.getAuthors();
+			String response = "{\"authors\":[\"";
+			for(String s: authors) { response = response + s + ","; }
+			response = response + "]}";
+			return response.replace(",]", "]").replaceAll("#", "'");
+		}
 
 	}
 
