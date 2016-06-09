@@ -139,8 +139,8 @@ public class DBFastInterface {
 			rs = executeSQLQuery(sql);
 			while(rs.next()) {
 				formattedBooks.add(
-						"{\"title\":\"" + rs.getString("title") + "\""
-						+ "\"author\":\"" + rs.getString("author") + "\""
+						"{\"title\":\"" + rs.getString("title") + "\","
+						+ "\"author\":\"" + rs.getString("author") + "\","
 						+ "\"language\":\"" + rs.getString("language") + "\"}");
 			}
 		} catch (SQLException e) {
