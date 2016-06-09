@@ -159,7 +159,6 @@ public class DBFastInterface {
 			}
 			else return null;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -191,12 +190,14 @@ public class DBFastInterface {
 	
 	// Function called with PUT /books/id?author= title= language=
 	// FOR NOW, does not work (the whole process of update)
-	public void editBookById(String id, String title, String author) {
+	public String editBookById(String id, String title, String author) {
 		String sql = "UPDATE Books SET title='" + title + "', author='" + author + "' WHERE idBook="+id + ";";
 		try {
 			executeSQLQuery(sql);
+			return "{\"status\":\"Update successful\"}";
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return "{\"status\":\"Update failure\"}";
 		}
 	}
 	

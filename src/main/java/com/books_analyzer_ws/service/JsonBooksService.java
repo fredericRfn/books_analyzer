@@ -40,13 +40,18 @@ public class JsonBooksService {
 		// GET /books/id
 		public String findBookById(String id) {
 			String[] titleAuthor = dbInterface.getTitleAuthorById(id);
-			int bookState = dbInterface.getBookState(id);
-			if(bookState==5) { // If the requested book is completely stored in the db
-				books.add(dbInterface.importBookFromDB(id, titleAuthor[0],titleAuthor[1]));
-				return getBooksJSON();
+			if (titleAuthor != null) {
+				int bookState = dbInterface.getBookState(id);
+				if(bookState==5) { // If the requested book is completely stored in the db
+					books.add(dbInterface.importBookFromDB(id, titleAuthor[0],titleAuthor[1]));
+					return getBooksJSON();
+				} else {
+					return getMessage(id, bookState);
+				}
 			} else {
-				return getMessage(id, bookState);
+				return "{\"error\":\"This book do not exist\"}";
 			}
+			
 		}
 
 		private String getMessage(String id, int bookState) {
@@ -79,8 +84,7 @@ public class JsonBooksService {
 		
 		// PUT /books/id?title=...&author=...
 		public String updateBookById(String id, String title, String author) {
-			dbInterface.editBookById(id, title, author);
-			return findBookById(id);
+			return dbInterface.editBookById(id, title, author);
 		}
 
 	}
