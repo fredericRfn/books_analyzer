@@ -22,7 +22,7 @@ public class UrlResourceService {
 		public static String getSingleAnalysisURL(String title, String author, String url) {
 			String idBook = IdCreator.createIdFromText(title+author);
 			if(dbInterface.isPresentInDB(title, author)){ 
-				return "{\"url\":" + urlBase + "books/" + idBook + "}";
+				return "{\"url\":\"" + urlBase + "books/" + idBook + "\"}";
 			}
 			else { // The mentioned book IS NOT in our database
 				if(url.length()>1) { // If the user provides its content
