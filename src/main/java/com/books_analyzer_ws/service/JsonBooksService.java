@@ -31,7 +31,7 @@ public class JsonBooksService {
 		// GET /books or GET /books?title=...&author=...
 		public String findBooks(String title, String author) {
 			ArrayList<String> books = dbInterface.getCompletedBooks(title, author);
-			String response = "{\"books\":[\"";
+			String response = "{\"books\":[";
 			for(String s: books) { response = response + s + ","; }
 			response = response + "]}";
 			return response.replace(",]", "]");
@@ -99,7 +99,7 @@ public class JsonBooksService {
 		// GET /authors
 		public String findAuthors() {
 			ArrayList<String> authors = dbInterface.getAuthors();
-			String response = "{\"authors\":[\"";
+			String response = "{\"authors\":[";
 			for(String s: authors) { response = response + s + ","; }
 			response = response + "]}";
 			return response.replace(",]", "]").replaceAll("#", "'");
